@@ -1,0 +1,54 @@
+version: '2'
+services:
+  mariadb:
+    image: 'bitnami/mariadb:10.2.15'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+#      - './persistence/mariadb_data:/bitnami'
+      - 'mariadb_data:/bitnami'
+  phabricator:
+#    image: 'bitnami/phabricator:2018.20.0'
+    build:
+      context: .
+      dockerfile: Dockerfile.phabricator
+    labels:
+      kompose.service.type: nodeport
+    ports:
+      - '22:22'
+      - '80:80'
+      - '443:443'
+    volumes:
+      #- './persistence/phabricator_data:/bitnami/phabricator'
+      - 'phabricator_data:/bitnami'
+    depends_on:
+      - mariadb
+      - jenkins
+  jenkins:
+#    image: 'bitnami/jenkins:2.107.3'
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    labels:
+      kompose.service.type: nodeport
+    ports:
+      - '8080:8080'
+      - '8443:8443'
+      - '50000:50000'
+    volumes:
+#      - './persistence/jenkins_data:/bitnami/jenkins'
+      - 'jenkins_data:/bitnami'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+#    depends_on:
+#      - docker
+#  docker:
+#    image: 'docker'
+volumes:
+  mariadb_data:
+    driver: local
+  phabricator_data:
+    driver: local
+  jenkins_data:
+    driver: local
+#networks:
+#  network1:
