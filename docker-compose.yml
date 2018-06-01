@@ -11,7 +11,7 @@ services:
 #    image: 'bitnami/phabricator:2018.20.0'
     build:
       context: .
-      dockerfile: Dockerfile.phabricator
+      dockerfile: phabricator/Dockerfile
     labels:
       kompose.service.type: nodeport
     ports:
@@ -28,7 +28,7 @@ services:
 #    image: 'bitnami/jenkins:2.107.3'
     build:
       context: .
-      dockerfile: Dockerfile.jenkins
+      dockerfile: jenkins/Dockerfile
     labels:
       kompose.service.type: nodeport
     ports:
