@@ -58,9 +58,11 @@ ok
 pipeline script from scm
 scm git
 ssh://git@phabricator/diffusion/GRIDTIED/grid-tied.git
-additional behaviours > add > advanced sub-modules
-use credentials from default remote of parent repository
-
+additional behaviours > add
+  - wipeout repository and force clone
+  - advanced submodule
+    - check recursively update
+    - check use credentials from parent
 
 add ssh user name with private key credentials
 generate a keypair in phabricator for the 'jenkins' bot user
