@@ -87,6 +87,8 @@ add user: phabricator
 
 jenkins > manage > configure
 
+disable csrf protection (yeah, this is bad but i haven't figured it out yet)
+
 default phabricator credentials
 add
 phabricator conduit key
