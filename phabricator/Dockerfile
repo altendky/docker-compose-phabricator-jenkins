@@ -26,7 +26,8 @@ RUN sed -i 's;\(exec .*\);usermod --password \\* git\nusermod --unlock git\nchow
 
 EXPOSE 22
 
-ENV PHABRICATOR_USERNAME="epc" \
+ENV PHABRICATOR_HOST="phabricator.local" \
+    PHABRICATOR_USERNAME="epc" \
     PHABRICATOR_PASSWORD="epcpower"
 
 WORKDIR /

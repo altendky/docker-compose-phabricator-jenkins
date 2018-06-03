@@ -7,7 +7,7 @@ services:
     volumes:
 #      - './persistence/mariadb_data:/bitnami'
       - 'mariadb_data:/bitnami'
-  phabricator:
+  phabricator.local:
 #    image: 'bitnami/phabricator:2018.20.0'
     build:
       context: .

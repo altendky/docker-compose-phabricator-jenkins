@@ -7,7 +7,7 @@ Watch the Phabricator container log and wait a couple minutes until the
 overseer deamon starts.
 
 logins:
-  - phabricator, epc:epcpower
+  - phabricator.local, epc:epcpower
   - jenkins, epc:epcpower
 
 Note that the image names are prefixed by the project name.  This is derived from the
@@ -57,7 +57,7 @@ pipeline
 ok
 pipeline script from scm
 scm git
-ssh://git@phabricator/diffusion/GRIDTIED/grid-tied.git
+ssh://git@phabricator.local/diffusion/GRIDTIED/grid-tied.git
 additional behaviours > add
   - wipeout repository and force clone
   - advanced submodule
@@ -92,12 +92,12 @@ disable csrf protection (yeah, this is bad but i haven't figured it out yet)
 default phabricator credentials
 add
 phabricator conduit key
-url: https://phabricator
-description: jenkins@phabricator
-conduit token: generate for jenkins@phabricator user
+url: http://phabricator.local (should be https, but no ssl setup here yet)
+description: jenkins@phabricator.local
+conduit token: generate for jenkins@phabricator.local user
 
 phabricator notifications
-select the https://phabricator credentials
+select the https://phabricator.local credentials
 
 ---- test it:
 
