@@ -24,6 +24,8 @@ RUN echo 'PATH=/usr/bin:/opt/bitnami/php/bin' >> /home/phabricator/.ssh/environm
 
 RUN sed -i 's;\(exec .*\);usermod --password \\* git\nusermod --unlock git\nchown git:git ~git/.ssh/environment\nservice ssh start\n\1;' /app-entrypoint.sh
 
+RUN apt-get clean
+
 EXPOSE 22
 
 ENV PHABRICATOR_HOST="phabricator.local" \

@@ -2,6 +2,17 @@ FROM bitnami/jenkins:2.107.3
 
 RUN sed -i 's;\(exec .*\);chown tomcat:tomcat /var/run/docker.sock\nchmod a+rw /var/run/docker.sock\n\1;' /app-entrypoint.sh
 
+RUN apt-get update
+RUN apt-get install -y git php5-cli
+
+# this doesn't seem to help so...  maybe don't need it
+WORKDIR /opt
+RUN git clone https://github.com/phacility/libphutil.git
+RUN git clone https://github.com/phacility/arcanist.git
+ENV PATH="${PATH}:/opt/arcanist/bin"
+
+WORKDIR /
+
 #RUN apt-get update
 #RUN apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common
 #RUN apt-get install -y lsb-release
@@ -20,5 +31,9 @@ RUN sed -i 's;\(exec .*\);chown tomcat:tomcat /var/run/docker.sock\nchmod a+rw /
 RUN curl -fsSL get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
 
+RUN apt-get clean
+
 ENV JENKINS_USERNAME="epc" \
     JENKINS_PASSWORD="epcpower"
+
+WORKDIR /
