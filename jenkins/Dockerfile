@@ -15,7 +15,7 @@ WORKDIR /
 RUN curl -fsSL get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
 
-ENV JENKINS_USERNAME="epc" \
-    JENKINS_PASSWORD="epcpower"
+ENV JENKINS_USERNAME="user" \
+    JENKINS_PASSWORD="password"
 
 WORKDIR /

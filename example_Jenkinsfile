@@ -1,0 +1,47 @@
+pipeline {
+    agent {
+        docker { image 'altendky/ccstudio8' }
+    }
+    stages {
+        stage('Info') {
+            steps {
+                sh 'lsb_release -a'
+                sh 'pwd'
+                sh 'ls -la'
+                sh 'set'
+                sh 'which ccstudio'
+            }
+        }
+        stage('Setup') {
+            steps {
+                sh 'echo PIP_CACHE_DIR="$HOME/.cache/pip" >> .env'
+                sh 'python3 create_venv.py create'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'venv/Scripts/gridtied build --target=LC12_3-7 --build-type=full'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'venv/Scripts/gridtied package --target=LC12_3-7'
+                sh 'unzip -l artifacts/*.zip'
+            }
+        }
+    }
+    // https://github.com/uber/phabricator-jenkins-plugin/pull/185#issuecomment-387734643
+    post {
+        always {
+            script {
+                // workaround. Seems to be a bug!?
+                currentBuild.result = currentBuild.currentResult
+            }
+            step([
+                $class: 'PhabricatorNotifier',
+                commentOnSuccess: true,
+                commentWithConsoleLinkOnFailure: true,
+            ])
+        }
+    }
+}
