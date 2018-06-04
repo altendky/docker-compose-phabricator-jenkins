@@ -1,8 +1,8 @@
 FROM bitnami/phabricator:2018.20.0
 
-RUN apt-get update
+RUN install_packages openssh-server acl
 
-RUN apt-get install -y openssh-server
+# acl for: https://github.com/bitnami/bitnami-docker-phabricator/issues/77#issuecomment-331167933
 
 WORKDIR /opt/bitnami/phabricator
 
@@ -22,9 +22,7 @@ RUN sed -i 's;\(\$root = \)dirname;\1;' /opt/bitnami/phabricator/bin/ssh-auth
 RUN mkdir -p /home/phabricator/.ssh
 RUN echo 'PATH=/usr/bin:/opt/bitnami/php/bin' >> /home/phabricator/.ssh/environment
 
-RUN sed -i 's;\(exec .*\);usermod --password \\* git\nusermod --unlock git\nchown git:git ~git/.ssh/environment\nservice ssh start\n\1;' /app-entrypoint.sh
-
-RUN apt-get clean
+RUN sed -i 's;\(exec .*\);usermod --password \\* git\nusermod --unlock git\nchown git:git ~git/.ssh/environment\nservice ssh start\nsetfacl -Rm d:u:phabricator:rwX,u:phabricator:rwX /bitnami/phabricator/data/\n\1;' /app-entrypoint.sh
 
 EXPOSE 22
 
