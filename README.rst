@@ -53,8 +53,8 @@ To start (depending on your Docker setup, `sudo` may be required):
 You can watch the Phabricator container log and wait a couple minutes until the
 overseer deamon starts.
 
-For both Phabricator and Jenkins, the default provided login is ``user`` and
-the password is ``password``.  Please change them...
+The ``login:password`` for Phabricator is ``user:bitnami1`` and for Jenkins
+``user:bitnami``.  Please change them or entirely remove those users.
 
 For those new to docker-compose, note that the image names are prefixed by
 the project name.  This is derived from the directory containing the
