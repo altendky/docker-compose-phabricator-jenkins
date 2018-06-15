@@ -6,7 +6,7 @@ RUN install_packages openssh-server acl
 
 WORKDIR /opt/bitnami/phabricator
 
-COPY packages/phabricatormod /tmp/bitnami/pkg/cache/phabricatormod-linux-x64-debian-8
+#COPY packages/phabricatormod /tmp/bitnami/pkg/cache/phabricatormod-linux-x64-debian-8
 
 #RUN adduser --quiet --home /opt/bitnami/phabricator git
 
