@@ -32,7 +32,7 @@ access it via ``http://jenkins:8080/``
   127.0.0.1       phabricator.local
 
 This was tested with a pipeline project.  The project itself is private but
-the ``Jenkinsfile`` is included here as ``exmaple_Jenkinsfile``.
+the ``Jenkinsfile`` is included here as ``example_Jenkinsfile``.
 
 Setup Steps
 ===========
