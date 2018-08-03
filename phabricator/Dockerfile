@@ -1,4 +1,4 @@
-FROM bitnami/phabricator:2018.20.0
+FROM bitnami/phabricator:2018.30.0
 
 RUN install_packages openssh-server acl
 
@@ -21,7 +21,8 @@ RUN sed -i 's;SSHD_OPTS=.*;SSHD_OPTS="-f /etc/ssh/sshd_config.phabricator";' /et
 RUN sed -i 's;\(\$root = \)dirname;\1;' /opt/bitnami/phabricator/bin/ssh-auth
 RUN mkdir -p /home/phabricator/.ssh
 RUN echo 'PATH=/usr/bin:/opt/bitnami/php/bin' >> /home/phabricator/.ssh/environment
-
+RUN echo 'PATH=/opt/bitnami/php/bin:$PATH' >> /home/phabricator/.bashrc
+RUN sed -e '3iexport PATH=/opt/bitnami/php/bin:$PATH' -i /opt/phabricator-ssh-hook.sh
 RUN sed -i 's;\(exec .*\);usermod --password \\* git\nusermod --unlock git\nchown git:git ~git/.ssh/environment\nservice ssh start\nsetfacl -Rm d:u:phabricator:rwX,u:phabricator:rwX /bitnami/phabricator/data/\n\1;' /app-entrypoint.sh
 
 EXPOSE 22
