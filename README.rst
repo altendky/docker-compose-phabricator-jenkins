@@ -79,7 +79,7 @@ Phabricator
     other hosting URL layouts.
   - Set built-in URI's to I/O type read-only
   - Create a new URI to the external repository such as
-    ``git@github.com:altendky/st`` with I/O type observe
+    ``ssh://git@github.com:altendky/st`` with I/O type observe
   - Add credentials if it is a private external repository
   - Activate the repository
 
